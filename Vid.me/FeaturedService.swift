@@ -8,12 +8,15 @@
 
 import Foundation
 import Alamofire
+import AlamofireObjectMapper
 
 class FeaturedService {
     
-    func loadFeatured(completion: @escaping ([VideosResponse]?) -> ()) {
-        Alamofire.request("https://api.vid.me/videos/featured").responseJSON { response in
+    func loadFeatured(offset: Int, completion: @escaping (VideosResponse?) -> ()) {
+        Alamofire.request("https://api.vid.me/videos/featured", parameters: ["offset": offset]).responseObject { (response: DataResponse<VideosResponse>) in
+            let videosResponse = response.result.value
             
+            completion(videosResponse)
         }
     }
     

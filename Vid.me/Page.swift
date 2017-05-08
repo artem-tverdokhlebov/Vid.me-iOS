@@ -10,11 +10,17 @@ import Foundation
 import ObjectMapper
 
 class Page: Mappable {
+    var offset: Int?
+    var limit: Int?
+    var total: Int?
+    
     required init?(map: Map) {
         
     }
     
     func mapping(map: Map) {
-        
+        offset <- map["offset"]
+        limit <- map["limit"]
+        total <- map["total"]
     }
 }
