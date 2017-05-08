@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		ACD3AC0D1EC0A959004D351D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD3AC0C1EC0A959004D351D /* AppDelegate.swift */; };
-		ACD3AC0F1EC0A959004D351D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD3AC0E1EC0A959004D351D /* ViewController.swift */; };
 		ACD3AC121EC0A959004D351D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ACD3AC101EC0A959004D351D /* Main.storyboard */; };
 		ACD3AC141EC0A959004D351D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ACD3AC131EC0A959004D351D /* Assets.xcassets */; };
 		ACD3AC171EC0A959004D351D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ACD3AC151EC0A959004D351D /* LaunchScreen.storyboard */; };
@@ -16,6 +15,8 @@
 		ACEC4F7A1EC0AE93007114F0 /* VideosResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACEC4F791EC0AE93007114F0 /* VideosResponse.swift */; };
 		ACEC4F7D1EC0B4E3007114F0 /* Video.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACEC4F7C1EC0B4E3007114F0 /* Video.swift */; };
 		ACEC4F7F1EC0B4FF007114F0 /* Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACEC4F7E1EC0B4FF007114F0 /* Page.swift */; };
+		ACEC4F841EC0C443007114F0 /* FeaturedTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACEC4F831EC0C443007114F0 /* FeaturedTableController.swift */; };
+		ACEC4F861EC0C574007114F0 /* VideoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACEC4F851EC0C574007114F0 /* VideoTableViewCell.swift */; };
 		EB93C97F414D996041CF9B27 /* Pods_Vid_me.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F94742267BBC2AA94A878FFC /* Pods_Vid_me.framework */; };
 /* End PBXBuildFile section */
 
@@ -23,7 +24,6 @@
 		3DC77DCCB08D163030794D31 /* Pods-Vid.me.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Vid.me.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Vid.me/Pods-Vid.me.debug.xcconfig"; sourceTree = "<group>"; };
 		ACD3AC091EC0A959004D351D /* Vid.me.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Vid.me.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACD3AC0C1EC0A959004D351D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		ACD3AC0E1EC0A959004D351D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		ACD3AC111EC0A959004D351D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		ACD3AC131EC0A959004D351D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		ACD3AC161EC0A959004D351D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -32,6 +32,8 @@
 		ACEC4F791EC0AE93007114F0 /* VideosResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideosResponse.swift; sourceTree = "<group>"; };
 		ACEC4F7C1EC0B4E3007114F0 /* Video.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Video.swift; sourceTree = "<group>"; };
 		ACEC4F7E1EC0B4FF007114F0 /* Page.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Page.swift; sourceTree = "<group>"; };
+		ACEC4F831EC0C443007114F0 /* FeaturedTableController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeaturedTableController.swift; sourceTree = "<group>"; };
+		ACEC4F851EC0C574007114F0 /* VideoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoTableViewCell.swift; sourceTree = "<group>"; };
 		F3A44217F6002A025012B814 /* Pods-Vid.me.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Vid.me.release.xcconfig"; path = "Pods/Target Support Files/Pods-Vid.me/Pods-Vid.me.release.xcconfig"; sourceTree = "<group>"; };
 		F94742267BBC2AA94A878FFC /* Pods_Vid_me.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Vid_me.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -79,13 +81,14 @@
 			isa = PBXGroup;
 			children = (
 				ACD3AC0C1EC0A959004D351D /* AppDelegate.swift */,
-				ACD3AC0E1EC0A959004D351D /* ViewController.swift */,
 				ACD3AC101EC0A959004D351D /* Main.storyboard */,
 				ACD3AC131EC0A959004D351D /* Assets.xcassets */,
 				ACD3AC151EC0A959004D351D /* LaunchScreen.storyboard */,
 				ACD3AC181EC0A959004D351D /* Info.plist */,
-				ACEC4F771EC0ABFD007114F0 /* FeaturedService.swift */,
+				ACEC4F801EC0B83F007114F0 /* API */,
 				ACEC4F7B1EC0AE96007114F0 /* Model */,
+				ACEC4F831EC0C443007114F0 /* FeaturedTableController.swift */,
+				ACEC4F851EC0C574007114F0 /* VideoTableViewCell.swift */,
 			);
 			path = Vid.me;
 			sourceTree = "<group>";
@@ -98,6 +101,14 @@
 				ACEC4F7E1EC0B4FF007114F0 /* Page.swift */,
 			);
 			name = Model;
+			sourceTree = "<group>";
+		};
+		ACEC4F801EC0B83F007114F0 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				ACEC4F771EC0ABFD007114F0 /* FeaturedService.swift */,
+			);
+			name = API;
 			sourceTree = "<group>";
 		};
 		ACFF64B227C4DD891CB09DB4 /* Frameworks */ = {
@@ -232,12 +243,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ACD3AC0F1EC0A959004D351D /* ViewController.swift in Sources */,
 				ACEC4F7A1EC0AE93007114F0 /* VideosResponse.swift in Sources */,
 				ACEC4F7F1EC0B4FF007114F0 /* Page.swift in Sources */,
 				ACEC4F781EC0ABFD007114F0 /* FeaturedService.swift in Sources */,
 				ACD3AC0D1EC0A959004D351D /* AppDelegate.swift in Sources */,
+				ACEC4F861EC0C574007114F0 /* VideoTableViewCell.swift in Sources */,
 				ACEC4F7D1EC0B4E3007114F0 /* Video.swift in Sources */,
+				ACEC4F841EC0C443007114F0 /* FeaturedTableController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
