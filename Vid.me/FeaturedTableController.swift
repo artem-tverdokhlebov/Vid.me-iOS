@@ -11,8 +11,8 @@ import Alamofire
 import SDWebImage
 
 class FeaturedViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    
     @IBOutlet weak var tableView: UITableView!
+    
     let featuredService: FeaturedService = FeaturedService()
     
     var page: Page?
@@ -29,9 +29,9 @@ class FeaturedViewController: UIViewController, UITableViewDelegate, UITableView
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    
+        
         self.tableView.addSubview(self.refreshControl)
-
+        
         loadVideos(offset: 0)
     }
     
@@ -67,14 +67,20 @@ class FeaturedViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let key = SDWebImageManager.shared().cacheKey(for: URL(string: videos[indexPath.row].thumbnail_url!))
+        guard let imageURL = videos[indexPath.row].thumbnail_url else {
+            return 200.0
+        }
         
-        let image = SDImageCache.shared().imageFromCache(forKey: key)
+        let cacheKey: String? = SDWebImageManager.shared().cacheKey(for: URL(string: imageURL))
+        let image: UIImage? = SDImageCache.shared().imageFromCache(forKey: cacheKey)
         
-        if image != nil {
-            return ((UIScreen.main.bounds.width * image!.size.height) / image!.size.width) + 40
+        let screenWidth = UIScreen.main.bounds.width
+        let bottomPanelHeight: CGFloat = 40.0
+        
+        if let image = image {
+            return ((screenWidth * image.size.height) / image.size.width) + bottomPanelHeight
         } else {
-            return 200
+            return 200.0
         }
     }
     
@@ -90,10 +96,12 @@ class FeaturedViewController: UIViewController, UITableViewDelegate, UITableView
         cell.videoPreviewView.sd_setShowActivityIndicatorView(true)
         cell.videoPreviewView.sd_setIndicatorStyle(.gray)
         
-        cell.videoPreviewView.sd_setImage(with: URL(string: videos[index].thumbnail_url!)!) { (image, error, cacheType, url) in
-            if cacheType == .none {
-                UIView.performWithoutAnimation {
-                    self.tableView.reloadRows(at: [indexPath], with: .none)
+        if let imagePath = videos[indexPath.row].thumbnail_url, let imageURL = URL(string: imagePath) {
+            cell.videoPreviewView.sd_setImage(with: imageURL) { (image, error, cacheType, url) in
+                if cacheType == .none {
+                    UIView.performWithoutAnimation {
+                        self.tableView.reloadRows(at: [indexPath], with: .none)
+                    }
                 }
             }
         }
