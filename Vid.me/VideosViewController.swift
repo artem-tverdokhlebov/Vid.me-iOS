@@ -10,10 +10,10 @@ import UIKit
 import Alamofire
 import SDWebImage
 
-class FeaturedViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class VideosViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var tableView: UITableView!
     
-    let featuredService: FeaturedService = FeaturedService()
+    lazy var dataService: VideosService? = nil
     
     var page: Page?
     var videos: [Video] = [Video]()
@@ -30,6 +30,8 @@ class FeaturedViewController: UIViewController, UITableViewDelegate, UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.tableView.register(UINib(nibName: "VideoTableViewCell", bundle: nil), forCellReuseIdentifier: "videoItemCell")
+        
         self.tableView.addSubview(self.refreshControl)
         
         loadVideos(offset: 0)
@@ -37,7 +39,7 @@ class FeaturedViewController: UIViewController, UITableViewDelegate, UITableView
     
     private func loadVideos(offset: Int) {
         isLoading = true
-        featuredService.loadFeatured(offset: offset) { (videosResponse) in
+        dataService?.loadVideos(offset: offset) { (videosResponse, error) in
             if let newVideos = videosResponse?.videos {
                 self.videos.append(contentsOf: newVideos)
                 
