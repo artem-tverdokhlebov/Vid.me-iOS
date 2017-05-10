@@ -13,7 +13,7 @@ import SDWebImage
 class VideosViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var tableView: UITableView!
     
-    lazy var dataService: VideosService? = nil
+    let apiService: APIService = APIService()
     
     var page: Page?
     var videos: [Video] = [Video]()
@@ -33,15 +33,18 @@ class VideosViewController: UIViewController, UITableViewDelegate, UITableViewDa
         self.tableView.register(UINib(nibName: "VideoTableViewCell", bundle: nil), forCellReuseIdentifier: "videoItemCell")
         
         self.tableView.addSubview(self.refreshControl)
-        
-        loadVideos(offset: 0)
     }
     
-    private func loadVideos(offset: Int) {
+    func loadVideosData(offset: Int, completion: @escaping VideosAPIServiceCallback) {
+        completion(nil, nil)
+    }
+    
+    func loadVideos(offset: Int) {
         isLoading = true
-        dataService?.loadVideos(offset: offset) { (videosResponse, error) in
-            if let newVideos = videosResponse?.videos {
-                self.videos.append(contentsOf: newVideos)
+        
+        self.loadVideosData(offset: offset) { (videosResponse, error) in
+            if let videos = videosResponse?.videos {
+                self.videos.append(contentsOf: videos)
                 
                 self.tableView.reloadData()
             }

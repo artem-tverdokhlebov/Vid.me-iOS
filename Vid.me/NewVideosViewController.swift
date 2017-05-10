@@ -9,10 +9,13 @@
 import Foundation
 
 class NewVideosViewController: VideosViewController {
-    override var dataService: VideosService? {
-        get {
-            return NewVideosService()
-        }
-        set {}
+    override func loadVideosData(offset: Int, completion: @escaping VideosAPIServiceCallback) {
+        apiService.getVideosRequest(path: "videos/new", parameters: ["offset": offset], completion: completion)
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        loadVideos(offset: 0)
     }
 }

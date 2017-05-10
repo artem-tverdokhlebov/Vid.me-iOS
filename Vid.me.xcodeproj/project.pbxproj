@@ -11,11 +11,14 @@
 		AC37BFF51EC23325001D9BE3 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC37BFF41EC23325001D9BE3 /* APIService.swift */; };
 		AC37BFF91EC24C5E001D9BE3 /* FeaturedVideosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC37BFF81EC24C5E001D9BE3 /* FeaturedVideosViewController.swift */; };
 		AC37BFFB1EC24C9B001D9BE3 /* NewVideosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC37BFFA1EC24C9B001D9BE3 /* NewVideosViewController.swift */; };
+		ACA915FF1EC31DEC00587B05 /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA915FE1EC31DEC00587B05 /* Auth.swift */; };
+		ACA916011EC328D600587B05 /* APIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA916001EC328D600587B05 /* APIResponse.swift */; };
+		ACA916031EC3291C00587B05 /* AuthResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA916021EC3291C00587B05 /* AuthResponse.swift */; };
+		ACA916051EC3893200587B05 /* FeedVideosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA916041EC3893200587B05 /* FeedVideosViewController.swift */; };
 		ACD3AC0D1EC0A959004D351D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD3AC0C1EC0A959004D351D /* AppDelegate.swift */; };
 		ACD3AC121EC0A959004D351D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ACD3AC101EC0A959004D351D /* Main.storyboard */; };
 		ACD3AC141EC0A959004D351D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ACD3AC131EC0A959004D351D /* Assets.xcassets */; };
 		ACD3AC171EC0A959004D351D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ACD3AC151EC0A959004D351D /* LaunchScreen.storyboard */; };
-		ACEC4F781EC0ABFD007114F0 /* VideosService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACEC4F771EC0ABFD007114F0 /* VideosService.swift */; };
 		ACEC4F7A1EC0AE93007114F0 /* VideosResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACEC4F791EC0AE93007114F0 /* VideosResponse.swift */; };
 		ACEC4F7D1EC0B4E3007114F0 /* Video.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACEC4F7C1EC0B4E3007114F0 /* Video.swift */; };
 		ACEC4F7F1EC0B4FF007114F0 /* Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACEC4F7E1EC0B4FF007114F0 /* Page.swift */; };
@@ -30,13 +33,16 @@
 		AC37BFF41EC23325001D9BE3 /* APIService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		AC37BFF81EC24C5E001D9BE3 /* FeaturedVideosViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeaturedVideosViewController.swift; sourceTree = "<group>"; };
 		AC37BFFA1EC24C9B001D9BE3 /* NewVideosViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewVideosViewController.swift; sourceTree = "<group>"; };
+		ACA915FE1EC31DEC00587B05 /* Auth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Auth.swift; sourceTree = "<group>"; };
+		ACA916001EC328D600587B05 /* APIResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIResponse.swift; sourceTree = "<group>"; };
+		ACA916021EC3291C00587B05 /* AuthResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthResponse.swift; sourceTree = "<group>"; };
+		ACA916041EC3893200587B05 /* FeedVideosViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedVideosViewController.swift; sourceTree = "<group>"; };
 		ACD3AC091EC0A959004D351D /* Vid.me.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Vid.me.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACD3AC0C1EC0A959004D351D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		ACD3AC111EC0A959004D351D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		ACD3AC131EC0A959004D351D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		ACD3AC161EC0A959004D351D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		ACD3AC181EC0A959004D351D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		ACEC4F771EC0ABFD007114F0 /* VideosService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideosService.swift; sourceTree = "<group>"; };
 		ACEC4F791EC0AE93007114F0 /* VideosResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideosResponse.swift; sourceTree = "<group>"; };
 		ACEC4F7C1EC0B4E3007114F0 /* Video.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Video.swift; sourceTree = "<group>"; };
 		ACEC4F7E1EC0B4FF007114F0 /* Page.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Page.swift; sourceTree = "<group>"; };
@@ -73,6 +79,7 @@
 				ACEC4F831EC0C443007114F0 /* VideosViewController.swift */,
 				AC37BFF81EC24C5E001D9BE3 /* FeaturedVideosViewController.swift */,
 				AC37BFFA1EC24C9B001D9BE3 /* NewVideosViewController.swift */,
+				ACA916041EC3893200587B05 /* FeedVideosViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -115,9 +122,12 @@
 		ACEC4F7B1EC0AE96007114F0 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				ACA916001EC328D600587B05 /* APIResponse.swift */,
 				ACEC4F791EC0AE93007114F0 /* VideosResponse.swift */,
 				ACEC4F7C1EC0B4E3007114F0 /* Video.swift */,
 				ACEC4F7E1EC0B4FF007114F0 /* Page.swift */,
+				ACA916021EC3291C00587B05 /* AuthResponse.swift */,
+				ACA915FE1EC31DEC00587B05 /* Auth.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -125,7 +135,6 @@
 		ACEC4F801EC0B83F007114F0 /* API */ = {
 			isa = PBXGroup;
 			children = (
-				ACEC4F771EC0ABFD007114F0 /* VideosService.swift */,
 				AC37BFF41EC23325001D9BE3 /* APIService.swift */,
 			);
 			name = API;
@@ -264,15 +273,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ACA916031EC3291C00587B05 /* AuthResponse.swift in Sources */,
 				ACEC4F7A1EC0AE93007114F0 /* VideosResponse.swift in Sources */,
 				ACEC4F7F1EC0B4FF007114F0 /* Page.swift in Sources */,
-				ACEC4F781EC0ABFD007114F0 /* VideosService.swift in Sources */,
 				ACD3AC0D1EC0A959004D351D /* AppDelegate.swift in Sources */,
 				ACEC4F861EC0C574007114F0 /* VideoTableViewCell.swift in Sources */,
+				ACA916011EC328D600587B05 /* APIResponse.swift in Sources */,
 				AC37BFFB1EC24C9B001D9BE3 /* NewVideosViewController.swift in Sources */,
+				ACA915FF1EC31DEC00587B05 /* Auth.swift in Sources */,
 				ACEC4F7D1EC0B4E3007114F0 /* Video.swift in Sources */,
 				AC37BFF51EC23325001D9BE3 /* APIService.swift in Sources */,
 				AC37BFF91EC24C5E001D9BE3 /* FeaturedVideosViewController.swift in Sources */,
+				ACA916051EC3893200587B05 /* FeedVideosViewController.swift in Sources */,
 				ACEC4F841EC0C443007114F0 /* VideosViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
