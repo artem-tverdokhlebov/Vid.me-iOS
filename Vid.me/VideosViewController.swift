@@ -158,13 +158,18 @@ class VideosViewController: UIViewController, UITableViewDelegate, UITableViewDa
         cell.videoPreviewView.sd_setShowActivityIndicatorView(true)
         cell.videoPreviewView.sd_setIndicatorStyle(.gray)
         
-        if let imagePath = videos[indexPath.row].thumbnail_url, let imageURL = URL(string: imagePath), self.apiService.isInternetAvailable() {
-            cell.videoPreviewView.sd_setImage(with: imageURL) { (image, error, cacheType, url) in
-                if cacheType == .none {
-                    UIView.performWithoutAnimation {
-                        self.tableView.reloadRows(at: [indexPath], with: .none)
+        if let imagePath = videos[indexPath.row].thumbnail_url, let imageURL = URL(string: imagePath) {
+            if self.apiService.isInternetAvailable() {
+                cell.videoPreviewView.sd_setImage(with: imageURL) { (image, error, cacheType, url) in
+                    if cacheType == .none {
+                        UIView.performWithoutAnimation {
+                            self.tableView.reloadRows(at: [indexPath], with: .none)
+                        }
                     }
                 }
+            } else {
+                let cacheKey: String? = SDWebImageManager.shared().cacheKey(for: imageURL)
+                cell.videoPreviewView.image = SDImageCache.shared().imageFromCache(forKey: cacheKey)
             }
         }
         
