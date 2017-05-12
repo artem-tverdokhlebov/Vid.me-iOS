@@ -23,30 +23,73 @@ class FeedVideosViewController: VideosViewController {
     @IBAction func loginAction(_ sender: UIButton) {
         apiService.authCreate(username: usernameTextField.text!, password: passwordTextField.text!) { (status, error) in
             if status {
-                self.loginStackView.isHidden = true
-                self.loginStackView.resignFirstResponder()
+                self.showAuthorizedViews()
+                
+                self.loginStackView.endEditing(true)
                 
                 self.loadVideos(offset: 0)
             } else if let error = error {
-                if error.kind != .networkProblem {
+                switch error.kind {
+                case .apiError:
                     self.showAlert(message: error.error!)
+                    break
+                case .networkProblem:
+                    self.showNetworkProblemLabel()
+                    break
                 }
             }
         }
     }
     
     @IBAction func logoutAction(_ sender: UIButton) {
-        // TODO: request to log out
+        self.apiService.authDelete { (status, error) in
+            if status {
+                self.showLoginViews()
+                
+                self.videos.removeAll()
+            } else if let error = error {
+                switch error.kind {
+                case .apiError:
+                    self.showAlert(message: error.error!)
+                    break
+                case .networkProblem:
+                    self.showNetworkProblemLabel()
+                    break
+                }
+            }
+        }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // TODO: handle UI state on user status
+        if self.apiService.isAuthorized() {
+            self.showAuthorizedViews()
+            
+            self.loadVideos(offset: 0)
+        } else {
+            self.showLoginViews()
+        }
     }
     
-    private func showAlert(message: String) {
-        let alertController = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
-        self.present(alertController, animated: true, completion: nil)
+    private func showLoginViews() {
+        self.usernameTextField.text = nil
+        self.passwordTextField.text = nil
+        
+        UIView.animate(withDuration: 0.5) {
+            self.loginStackView.alpha = 1
+        
+            self.tableView.alpha = 0
+            self.logoutButton.alpha = 0
+        }
+    }
+    
+    private func showAuthorizedViews() {
+        UIView.animate(withDuration: 0.5) {
+            self.loginStackView.alpha = 0
+            
+            self.tableView.alpha = 1
+            self.logoutButton.alpha = 1
+        }
     }
 }

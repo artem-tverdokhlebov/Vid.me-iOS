@@ -12,6 +12,7 @@ import SDWebImage
 
 class VideosViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var networkProblemLabel: UILabel!
     
     let apiService: APIService = APIService()
     
@@ -25,6 +26,19 @@ class VideosViewController: UIViewController, UITableViewDelegate, UITableViewDa
         refreshControl.addTarget(self, action: #selector(handleRefresh), for: UIControlEvents.valueChanged)
         
         return refreshControl
+    }()
+    
+    var bottomRefreshView: UIView = {
+        let containerView: UIView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 80))
+        let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+        
+        containerView.addSubview(activityIndicator)
+        
+        activityIndicator.autoresizingMask = [.flexibleLeftMargin, .flexibleRightMargin, .flexibleTopMargin, .flexibleBottomMargin]
+        
+        activityIndicator.startAnimating()
+        
+        return containerView
     }()
     
     override func viewDidLoad() {
@@ -43,26 +57,67 @@ class VideosViewController: UIViewController, UITableViewDelegate, UITableViewDa
         isLoading = true
         
         self.loadVideosData(offset: offset) { (videosResponse, error) in
-            if let videos = videosResponse?.videos {
-                self.videos.append(contentsOf: videos)
-                
-                self.tableView.reloadData()
+            if let response = videosResponse {
+                if let status = response.status, status {
+                    if let videos = response.videos {
+                        if offset == 0 {
+                            self.videos = [Video]()
+                        }
+                        
+                        self.videos.append(contentsOf: videos)
+                        
+                        self.tableView.reloadData()
+                    }
+                    
+                    if let page = response.page {
+                        self.page = page
+                    }
+ 
+                    self.isLoading = false
+                }
+            } else if let error = error {
+                switch error.kind {
+                case .apiError:
+                    self.showAlert(message: error.error)
+                    break
+                case .networkProblem:
+                    self.showNetworkProblemLabel()
+                    break
+                }
             }
             
-            if let page = videosResponse?.page {
-                self.page = page
+            if self.refreshControl.isRefreshing {
+                self.refreshControl.endRefreshing()
             }
             
-            self.isLoading = false
+            if self.tableView.tableFooterView != nil {
+                self.tableView.tableFooterView = nil
+            }
         }
     }
     
     func handleRefresh(refreshControl: UIRefreshControl) {
-        videos = [Video]()
         loadVideos(offset: 0)
+    }
+    
+    internal func showNetworkProblemLabel() {
+        self.networkProblemLabel.isHidden = false
         
-        self.tableView.reloadData()
-        refreshControl.endRefreshing()
+        UIView.animate(withDuration: 0.2, animations: {
+            self.networkProblemLabel.alpha = 1
+        }) { (finished) in
+            UIView.animate(withDuration: 0.2, delay: 2.0, options: [], animations: {
+                self.networkProblemLabel.alpha = 0
+            }) { (finished) in
+                self.networkProblemLabel.isHidden = true
+            }
+        }
+    }
+    
+    internal func showAlert(message: String?) {
+        let alertController = UIAlertController(title: "Error", message: message ?? "Unknown error", preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        self.present(alertController, animated: true, completion: nil)
     }
     
     // MARK: - Table view data source
@@ -72,7 +127,7 @@ class VideosViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        guard let imageURL = videos[indexPath.row].thumbnail_url else {
+        guard videos.count > indexPath.row, let imageURL = videos[indexPath.row].thumbnail_url else {
             return 200.0
         }
         
@@ -101,7 +156,7 @@ class VideosViewController: UIViewController, UITableViewDelegate, UITableViewDa
         cell.videoPreviewView.sd_setShowActivityIndicatorView(true)
         cell.videoPreviewView.sd_setIndicatorStyle(.gray)
         
-        if let imagePath = videos[indexPath.row].thumbnail_url, let imageURL = URL(string: imagePath) {
+        if let imagePath = videos[indexPath.row].thumbnail_url, let imageURL = URL(string: imagePath), self.apiService.isInternetAvailable() {
             cell.videoPreviewView.sd_setImage(with: imageURL) { (image, error, cacheType, url) in
                 if cacheType == .none {
                     UIView.performWithoutAnimation {
@@ -120,9 +175,12 @@ class VideosViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offsetY = scrollView.contentOffset.y
         let contentHeight = scrollView.contentSize.height
+        let scrollViewHeight = scrollView.frame.size.height
         
-        if offsetY > contentHeight - scrollView.frame.size.height && !isLoading {
-            if let videosOffset = page?.offset, let videosLimit = page?.limit {
+        if (offsetY > contentHeight - scrollViewHeight || (Int(offsetY + scrollViewHeight) == Int(contentHeight + scrollView.contentInset.bottom))) && !isLoading {
+            if let videosOffset = page?.offset, let videosLimit = page?.limit, let videosTotal = page?.total, (videosOffset + videosLimit) < videosTotal {
+                self.tableView.tableFooterView = bottomRefreshView
+                
                 loadVideos(offset: videosOffset + videosLimit)
             }
         }

@@ -20,7 +20,7 @@ class Auth: Mappable {
     
     func mapping(map: Map) {
         token <- map["token"]
-        expires <- (map["expires"], DateTransform())
+        expires <- (map["expires"], CustomDateFormatTransform(formatString: "yyyy-MM-dd HH:mm:ss"))
         user_id <- map["user_id"]
     }
 }

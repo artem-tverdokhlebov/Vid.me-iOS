@@ -49,17 +49,36 @@
                                     <outlet property="delegate" destination="noU-C5-7eq" id="9Z8-OS-zwT"/>
                                 </connections>
                             </tableView>
+                            <label hidden="YES" opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No internet connection" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OVq-JI-B04">
+                                <rect key="frame" x="0.0" y="20" width="375" height="35"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="0.80000000000000004" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="7Ot-rQ-KHH"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="alpha">
+                                        <integer key="value" value="0"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="6LQ-jH-EQu" secondAttribute="trailing" id="1vw-zn-bw4"/>
                             <constraint firstItem="6LQ-jH-EQu" firstAttribute="leading" secondItem="32d-RR-Kbg" secondAttribute="leading" id="2W6-eB-k12"/>
                             <constraint firstItem="BUQ-t2-fpr" firstAttribute="top" secondItem="6LQ-jH-EQu" secondAttribute="bottom" id="LdG-Cb-6Dx"/>
+                            <constraint firstItem="OVq-JI-B04" firstAttribute="top" secondItem="pXE-Oe-LgY" secondAttribute="bottom" id="MYt-ha-qf9"/>
                             <constraint firstItem="6LQ-jH-EQu" firstAttribute="top" secondItem="pXE-Oe-LgY" secondAttribute="bottom" id="OmW-q3-Fsm"/>
+                            <constraint firstItem="OVq-JI-B04" firstAttribute="leading" secondItem="32d-RR-Kbg" secondAttribute="leading" id="XyR-Gp-f5t"/>
+                            <constraint firstAttribute="trailing" secondItem="OVq-JI-B04" secondAttribute="trailing" id="jwB-bi-Fue"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" systemItem="featured" id="6rz-61-JO9"/>
                     <connections>
+                        <outlet property="networkProblemLabel" destination="OVq-JI-B04" id="D2V-fv-qWd"/>
                         <outlet property="tableView" destination="6LQ-jH-EQu" id="zO5-EO-LaU"/>
                     </connections>
                 </viewController>
@@ -88,23 +107,42 @@
                                     <outlet property="delegate" destination="ikh-il-tid" id="aTf-w8-xne"/>
                                 </connections>
                             </tableView>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No internet connection" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vn8-Qo-PC8">
+                                <rect key="frame" x="0.0" y="20" width="375" height="35"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="0.80000000000000004" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="QID-DU-feD"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="alpha">
+                                        <integer key="value" value="0"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="MYc-FT-PrU" secondAttribute="trailing" id="54L-DI-haN"/>
+                            <constraint firstItem="Vn8-Qo-PC8" firstAttribute="top" secondItem="ypE-NA-Rcf" secondAttribute="bottom" id="6lp-fc-u9s"/>
                             <constraint firstItem="MYc-FT-PrU" firstAttribute="top" secondItem="ypE-NA-Rcf" secondAttribute="bottom" id="PDf-1T-kcv"/>
+                            <constraint firstItem="Vn8-Qo-PC8" firstAttribute="leading" secondItem="bia-yj-caH" secondAttribute="leading" id="j5q-FP-T2l"/>
+                            <constraint firstAttribute="trailing" secondItem="Vn8-Qo-PC8" secondAttribute="trailing" id="qXH-XH-WF9"/>
                             <constraint firstItem="Exh-gs-HCd" firstAttribute="top" secondItem="MYc-FT-PrU" secondAttribute="bottom" id="wNp-Tm-H6N"/>
                             <constraint firstItem="MYc-FT-PrU" firstAttribute="leading" secondItem="bia-yj-caH" secondAttribute="leading" id="x7g-Dz-9pe"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="New" id="FxT-Yn-KdR"/>
                     <connections>
+                        <outlet property="networkProblemLabel" destination="Vn8-Qo-PC8" id="RY9-Ug-nsq"/>
                         <outlet property="tableView" destination="MYc-FT-PrU" id="Azm-Av-JTd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rUv-aQ-J14" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1258" y="330"/>
+            <point key="canvasLocation" x="-1258.4000000000001" y="329.68515742128938"/>
         </scene>
         <!--Feed-->
         <scene sceneID="MBh-Zm-aa7">
@@ -118,59 +156,91 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="240" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="uxy-CH-VMO">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="240" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="uxy-CH-VMO">
                                 <rect key="frame" x="0.0" y="20" width="375" height="558"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="alpha">
+                                        <integer key="value" value="0"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <outlet property="dataSource" destination="ks8-hX-PNQ" id="mPr-Pc-dye"/>
                                     <outlet property="delegate" destination="ks8-hX-PNQ" id="ObR-0Y-J9h"/>
                                 </connections>
                             </tableView>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9qD-qw-a8f">
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No internet connection" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vPN-Sz-ha5">
+                                <rect key="frame" x="0.0" y="20" width="375" height="35"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="0.80000000000000004" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="K88-oZ-ixF"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="alpha">
+                                        <integer key="value" value="0"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9qD-qw-a8f">
                                 <rect key="frame" x="0.0" y="578" width="375" height="40"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="kV7-EU-zEV"/>
                                 </constraints>
+                                <color key="tintColor" red="0.95686274510000002" green="0.26274509800000001" blue="0.21176470589999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="Log Out"/>
                                 <connections>
                                     <action selector="logoutAction:" destination="ks8-hX-PNQ" eventType="touchUpInside" id="VW8-O7-5nT"/>
                                 </connections>
                             </button>
-                            <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="hM0-tb-nxS">
-                                <rect key="frame" x="40" y="280.5" width="295" height="106"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="hM0-tb-nxS">
+                                <rect key="frame" x="40" y="278.5" width="295" height="110"/>
                                 <subviews>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="OSD-Cc-u0s">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="OSD-Cc-u0s">
                                         <rect key="frame" x="0.0" y="0.0" width="295" height="30"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DhK-er-Qcu">
-                                        <rect key="frame" x="0.0" y="38" width="295" height="30"/>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DhK-er-Qcu">
+                                        <rect key="frame" x="0.0" y="40" width="295" height="30"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ldz-5A-GVi">
-                                        <rect key="frame" x="0.0" y="76" width="295" height="30"/>
+                                        <rect key="frame" x="0.0" y="80" width="295" height="30"/>
+                                        <color key="backgroundColor" name="selectedControlColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                         <state key="normal" title="Log In"/>
                                         <connections>
                                             <action selector="loginAction:" destination="ks8-hX-PNQ" eventType="touchUpInside" id="Der-HQ-Xdx"/>
                                         </connections>
                                     </button>
                                 </subviews>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="alpha">
+                                        <integer key="value" value="0"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="9qD-qw-a8f" firstAttribute="top" secondItem="uxy-CH-VMO" secondAttribute="bottom" id="15k-9P-RKe"/>
                             <constraint firstItem="hM0-tb-nxS" firstAttribute="leading" secondItem="Vyw-6V-xTh" secondAttribute="leading" constant="40" id="5Gy-lK-tkF"/>
+                            <constraint firstItem="vPN-Sz-ha5" firstAttribute="leading" secondItem="Vyw-6V-xTh" secondAttribute="leading" id="6Ai-X3-ZpL"/>
                             <constraint firstItem="sB5-4f-yq7" firstAttribute="top" secondItem="9qD-qw-a8f" secondAttribute="bottom" id="8KN-rr-ye7"/>
+                            <constraint firstItem="vPN-Sz-ha5" firstAttribute="top" secondItem="Bka-WT-Wk3" secondAttribute="bottom" id="DBd-vD-hVC"/>
                             <constraint firstItem="uxy-CH-VMO" firstAttribute="top" secondItem="Bka-WT-Wk3" secondAttribute="bottom" id="Ryv-fp-tSk"/>
                             <constraint firstItem="hM0-tb-nxS" firstAttribute="centerY" secondItem="Vyw-6V-xTh" secondAttribute="centerY" id="SkW-GL-ylE"/>
                             <constraint firstItem="9qD-qw-a8f" firstAttribute="leading" secondItem="Vyw-6V-xTh" secondAttribute="leading" id="a8q-qj-q87"/>
                             <constraint firstItem="uxy-CH-VMO" firstAttribute="leading" secondItem="Vyw-6V-xTh" secondAttribute="leading" id="a8r-gq-hCU"/>
+                            <constraint firstAttribute="trailing" secondItem="vPN-Sz-ha5" secondAttribute="trailing" id="fUC-rR-2dM"/>
                             <constraint firstAttribute="trailing" secondItem="9qD-qw-a8f" secondAttribute="trailing" id="lTd-R2-o0b"/>
                             <constraint firstAttribute="trailing" secondItem="uxy-CH-VMO" secondAttribute="trailing" id="qdw-LJ-UIi"/>
                             <constraint firstAttribute="trailing" secondItem="hM0-tb-nxS" secondAttribute="trailing" constant="40" id="xex-T4-iGk"/>
@@ -180,6 +250,7 @@
                     <connections>
                         <outlet property="loginStackView" destination="hM0-tb-nxS" id="0MV-qs-PvQ"/>
                         <outlet property="logoutButton" destination="9qD-qw-a8f" id="Qi5-6X-pI0"/>
+                        <outlet property="networkProblemLabel" destination="vPN-Sz-ha5" id="vqL-6V-nWy"/>
                         <outlet property="passwordTextField" destination="DhK-er-Qcu" id="YaI-o7-bgh"/>
                         <outlet property="tableView" destination="uxy-CH-VMO" id="bbI-qB-HC0"/>
                         <outlet property="usernameTextField" destination="OSD-Cc-u0s" id="lQM-th-YHk"/>

@@ -36,10 +36,10 @@ class APIService {
         return ["Authorization": "Basic " + Data((APIKey + ":").utf8).base64EncodedString()]
     }()
     
-    lazy var userDefaults: UserDefaults = UserDefaults.standard
+    lazy private var userDefaults: UserDefaults = UserDefaults.standard
     
     func authCreate(username: String, password: String, completion: @escaping AuthAPIServiceCallback) {
-        guard isInternetAvailable() else {
+        guard self.isInternetAvailable() else {
             completion(false, APIServiceError(error: nil, kind: .networkProblem))
             
             return
@@ -51,25 +51,50 @@ class APIService {
             "nocookie": true
         ]
         
-        Alamofire.request(baseURL + "auth/create", method: .post, parameters: userObject, encoding: URLEncoding.default, headers: authHeader).responseObject { (response: DataResponse<AuthResponse>) in
+        Alamofire.request(baseURL + "auth/create", method: .post, parameters: userObject, encoding: URLEncoding.default, headers: self.authHeader).responseObject { (response: DataResponse<AuthResponse>) in
             if let response = response.result.value {
                 if let status = response.status, status {
                     self.userDefaults.set(response.auth?.token, forKey: userTokenKey)
-                    self.userDefaults.set(response.auth?.expires, forKey: userExpiresKey)
+                    self.userDefaults.set(response.auth?.expires?.timeIntervalSince1970, forKey: userExpiresKey)
                     self.userDefaults.set(response.auth?.user_id, forKey: userIDKey)
                     
                     completion(true, nil)
                 } else {
                     completion(false, APIServiceError(error: response.error, kind: .apiError))
                 }
+            } else {
+                completion(false, APIServiceError(error: nil, kind: .apiError))
             }
         }
     }
     
-    func authDelete() {
-        // FIXME: accessToken header
-        Alamofire.request(baseURL + "auth/delete", method: .post, headers: authHeader).responseObject { (response: DataResponse<AuthResponse>) in
-            // TODO: log out handling
+    func authDelete(completion: @escaping AuthAPIServiceCallback) {
+        guard self.isInternetAvailable() else {
+            completion(false, APIServiceError(error: nil, kind: .networkProblem))
+            
+            return
+        }
+        
+        guard let userToken = self.userToken() else {
+            completion(true, nil)
+            
+            return
+        }
+        
+        Alamofire.request(baseURL + "auth/delete", method: .post, headers: ["AccessToken": userToken]).responseObject { (response: DataResponse<AuthResponse>) in
+            if let response = response.result.value {
+                if let status = response.status, status {
+                    self.userDefaults.set(nil, forKey: userTokenKey)
+                    self.userDefaults.set(nil, forKey: userExpiresKey)
+                    self.userDefaults.set(nil, forKey: userIDKey)
+                    
+                    completion(true, nil)
+                } else {
+                    completion(false, APIServiceError(error: response.error, kind: .apiError))
+                }
+            } else {
+                completion(false, APIServiceError(error: nil, kind: .apiError))
+            }
         }
     }
     
@@ -82,7 +107,7 @@ class APIService {
         
         var headers: HTTPHeaders? = nil
         
-        if requiresAuth, let userToken = userToken() {
+        if requiresAuth, let userToken = self.userToken() {
             headers = ["AccessToken": userToken]
         }
         
@@ -93,12 +118,32 @@ class APIService {
                 } else {
                     completion(nil, APIServiceError(error: response.error, kind: .apiError))
                 }
+            } else {
+                completion(nil, APIServiceError(error: nil, kind: .apiError))
             }
         }
     }
     
     private func userToken() -> String? {
-        return userDefaults.string(forKey: userTokenKey)
+        let expireDate = self.userDefaults.double(forKey: userExpiresKey)
+        
+        guard let userToken = self.userDefaults.string(forKey: userTokenKey), expireDate != 0.0 else {
+            return nil
+        }
+        
+        if Date().timeIntervalSince1970 < expireDate {
+            return userToken
+        } else {
+            self.userDefaults.set(nil, forKey: userTokenKey)
+            self.userDefaults.set(nil, forKey: userExpiresKey)
+            self.userDefaults.set(nil, forKey: userIDKey)
+            
+            return nil
+        }
+    }
+    
+    func isAuthorized() -> Bool {
+        return self.userToken() != nil
     }
     
     func isInternetAvailable() -> Bool {
