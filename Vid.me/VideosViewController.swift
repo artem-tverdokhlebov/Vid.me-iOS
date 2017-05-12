@@ -9,6 +9,8 @@
 import UIKit
 import Alamofire
 import SDWebImage
+import AVKit
+import AVFoundation
 
 class VideosViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var tableView: UITableView!
@@ -72,7 +74,7 @@ class VideosViewController: UIViewController, UITableViewDelegate, UITableViewDa
                     if let page = response.page {
                         self.page = page
                     }
- 
+                    
                     self.isLoading = false
                 }
             } else if let error = error {
@@ -170,6 +172,25 @@ class VideosViewController: UIViewController, UITableViewDelegate, UITableViewDa
         cell.videoLikesLabel.text = "\(videos[index].likes_count ?? 0) likes"
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let completeURL = self.videos[indexPath.row].complete_url, let videoURL = URL(string: completeURL) {
+            if self.apiService.isInternetAvailable() {
+                let player = AVPlayer(url: videoURL)
+                
+                let playerViewController = AVPlayerViewController()
+                playerViewController.player = player
+                
+                playerViewController.modalTransitionStyle = .flipHorizontal
+                
+                self.present(playerViewController, animated: true) {
+                    playerViewController.player!.play()
+                }
+            } else {
+                self.showNetworkProblemLabel()
+            }
+        }
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
