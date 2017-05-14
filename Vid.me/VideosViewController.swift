@@ -23,6 +23,8 @@ class VideosViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     var isLoading: Bool = false
     
+    var previousVideoPlayingCell: VideoTableViewCell? = nil
+    
     lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(handleRefresh), for: UIControlEvents.valueChanged)
@@ -32,13 +34,17 @@ class VideosViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     var bottomRefreshView: UIView = {
         let containerView: UIView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 80))
-        let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+        let activityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
         
-        containerView.addSubview(activityIndicator)
+        activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
         
-        activityIndicator.autoresizingMask = [.flexibleLeftMargin, .flexibleRightMargin, .flexibleTopMargin, .flexibleBottomMargin]
+        containerView.addSubview(activityIndicatorView)
         
-        activityIndicator.startAnimating()
+        NSLayoutConstraint(item: activityIndicatorView, attribute: .centerX, relatedBy: .equal, toItem: containerView, attribute: .centerX, multiplier: 1.0, constant: 0.0).isActive = true
+        
+        NSLayoutConstraint(item: activityIndicatorView, attribute: .centerY, relatedBy: .equal, toItem: containerView, attribute: .centerY, multiplier: 1.0, constant: 0.0).isActive = true
+        
+        activityIndicatorView.startAnimating()
         
         return containerView
     }()
@@ -49,6 +55,12 @@ class VideosViewController: UIViewController, UITableViewDelegate, UITableViewDa
         self.tableView.register(UINib(nibName: "VideoTableViewCell", bundle: nil), forCellReuseIdentifier: "videoItemCell")
         
         self.tableView.addSubview(self.refreshControl)
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        self.previousVideoPlayingCell?.stopVideo()
     }
     
     func loadVideosData(offset: Int, completion: @escaping VideosAPIServiceCallback) {
@@ -102,7 +114,7 @@ class VideosViewController: UIViewController, UITableViewDelegate, UITableViewDa
         loadVideos(offset: 0)
     }
     
-    internal func showNetworkProblemLabel() {
+    func showNetworkProblemLabel() {
         self.networkProblemLabel.isHidden = false
         
         UIView.animate(withDuration: 0.2, animations: {
@@ -116,7 +128,7 @@ class VideosViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
     }
     
-    internal func showAlert(message: String?) {
+    func showAlert(message: String?) {
         let alertController = UIAlertController(title: "Error", message: message ?? "Unknown error", preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         self.present(alertController, animated: true, completion: nil)
@@ -180,20 +192,40 @@ class VideosViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.tableView.deselectRow(at: indexPath, animated: true)
+        
         if let completeURL = self.videos[indexPath.row].complete_url, let videoURL = URL(string: completeURL) {
             if self.apiService.isInternetAvailable() {
-                let player = AVPlayer(url: videoURL)
                 
-                let playerViewController = AVPlayerViewController()
-                playerViewController.player = player
+                let videoCell = tableView.cellForRow(at: indexPath) as! VideoTableViewCell
                 
-                playerViewController.modalTransitionStyle = .flipHorizontal
-                
-                self.present(playerViewController, animated: true) {
-                    playerViewController.player!.play()
-                }
+                videoCell.playVideo(videoURL: videoURL)
             } else {
                 self.showNetworkProblemLabel()
+            }
+        }
+    }
+    
+    func playVideoInCenterCell() {
+        let centerPoint = CGPoint(x: self.tableView.frame.width / 2, y: self.tableView.contentOffset.y + (self.tableView.frame.height / 2))
+        
+        let indexPath = self.tableView.indexPathForRow(at: centerPoint)
+        
+        if let indexPath = indexPath {
+            let videoCell = self.tableView.cellForRow(at: indexPath) as! VideoTableViewCell
+            
+            if self.previousVideoPlayingCell != nil && self.previousVideoPlayingCell != videoCell {
+                self.previousVideoPlayingCell?.stopVideo()
+            }
+            
+            if let completeURL = self.videos[indexPath.row].complete_url, let videoURL = URL(string: completeURL) {
+                if self.apiService.isInternetAvailable() {
+                    videoCell.playVideo(videoURL: videoURL)
+                    
+                    self.previousVideoPlayingCell = videoCell
+                } else {
+                    self.showNetworkProblemLabel()
+                }
             }
         }
     }
@@ -204,11 +236,21 @@ class VideosViewController: UIViewController, UITableViewDelegate, UITableViewDa
         let scrollViewHeight = scrollView.frame.size.height
         
         if (offsetY > contentHeight - scrollViewHeight || (Int(offsetY + scrollViewHeight) == Int(contentHeight + scrollView.contentInset.bottom))) && !isLoading {
-            if let videosOffset = page?.offset, let videosLimit = page?.limit, let videosTotal = page?.total, (videosOffset + videosLimit) < videosTotal {
-                self.tableView.tableFooterView = bottomRefreshView
+            if let videosOffset = self.page?.offset, let videosLimit = self.page?.limit, let videosTotal = page?.total, (videosOffset + videosLimit) < videosTotal {
+                self.tableView.tableFooterView = self.bottomRefreshView
                 
-                loadVideos(offset: videosOffset + videosLimit)
+                self.loadVideos(offset: videosOffset + videosLimit)
             }
         }
+    }
+    
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        if !decelerate {
+            self.playVideoInCenterCell()
+        }
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        self.playVideoInCenterCell()
     }
 }

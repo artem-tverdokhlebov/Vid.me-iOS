@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FeedVideosViewController: VideosViewController {    
+class FeedVideosViewController: VideosViewController {
     @IBOutlet weak var loginStackView: UIStackView!
     
     @IBOutlet weak var usernameTextField: UITextField!
@@ -76,20 +76,16 @@ class FeedVideosViewController: VideosViewController {
         self.usernameTextField.text = nil
         self.passwordTextField.text = nil
         
-        UIView.animate(withDuration: 0.5) {
-            self.loginStackView.alpha = 1
+        self.loginStackView.alpha = 1
         
-            self.tableView.alpha = 0
-            self.logoutButton.alpha = 0
-        }
+        self.tableView.alpha = 0
+        self.logoutButton.alpha = 0
     }
     
     private func showAuthorizedViews() {
-        UIView.animate(withDuration: 0.5) {
-            self.loginStackView.alpha = 0
-            
-            self.tableView.alpha = 1
-            self.logoutButton.alpha = 1
-        }
+        self.loginStackView.alpha = 0
+        
+        self.tableView.alpha = 1
+        self.logoutButton.alpha = 1
     }
 }
