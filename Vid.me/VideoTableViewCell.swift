@@ -20,6 +20,7 @@ class VideoTableViewCell: UITableViewCell {
         let playerLayer = AVPlayerLayer()
         
         playerLayer.videoGravity = AVLayerVideoGravityResizeAspect
+        playerLayer.backgroundColor = UIColor.black.cgColor
         
         return playerLayer
     }()
@@ -31,6 +32,8 @@ class VideoTableViewCell: UITableViewCell {
         
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
         
+        activityIndicator.color = UIColor.white
+        
         return activityIndicator
     }()
     
@@ -41,6 +44,9 @@ class VideoTableViewCell: UITableViewCell {
         self.playerLayer.player = nil
         
         if let player = self.player {
+            player.pause()
+            player.replaceCurrentItem(with: nil)
+
             player.removeObserver(self, forKeyPath: "status")
             NotificationCenter.default.removeObserver(player, name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
             
@@ -69,7 +75,7 @@ class VideoTableViewCell: UITableViewCell {
             
             self.player?.addObserver(self, forKeyPath: "status", options: .new, context: nil)
             if let player = self.player {
-                NotificationCenter.default.addObserver(player, selector: #selector(stopVideo), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
+                NotificationCenter.default.addObserver(player, selector: #selector(self.stopVideo), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
             }
         }
         
@@ -78,7 +84,7 @@ class VideoTableViewCell: UITableViewCell {
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if object as? AVPlayer == self.player && keyPath == "status" {
-            if self.player?.status == AVPlayerStatus.readyToPlay {
+            if self.player?.status == AVPlayerStatus.readyToPlay && self.player?.currentItem != nil {
                 self.videoPreviewView.layer.addSublayer(self.playerLayer)
             }
         }
@@ -86,14 +92,22 @@ class VideoTableViewCell: UITableViewCell {
     
     func stopVideo() {
         self.activityIndicatorView.stopAnimating()
-        
-        self.player?.replaceCurrentItem(with: nil)
         self.playerLayer.removeFromSuperlayer()
+        
+        if let player = self.player {
+            player.pause()
+            player.replaceCurrentItem(with: nil)
+            
+            player.removeObserver(self, forKeyPath: "status")
+            NotificationCenter.default.removeObserver(player, name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
+            
+            self.player = nil
+        }
     }
     
-    func toogleVolume() {
-        if let player = self.player {
-            player.isMuted = !player.isMuted
-        }
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        self.playerLayer.frame = self.videoPreviewView.bounds
     }
 }

@@ -11,6 +11,7 @@
 		AC37BFF51EC23325001D9BE3 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC37BFF41EC23325001D9BE3 /* APIService.swift */; };
 		AC37BFF91EC24C5E001D9BE3 /* FeaturedVideosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC37BFF81EC24C5E001D9BE3 /* FeaturedVideosViewController.swift */; };
 		AC37BFFB1EC24C9B001D9BE3 /* NewVideosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC37BFFA1EC24C9B001D9BE3 /* NewVideosViewController.swift */; };
+		AC5581421EC896D9002A4B94 /* VideosTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5581411EC896D9002A4B94 /* VideosTabBarController.swift */; };
 		ACA915FF1EC31DEC00587B05 /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA915FE1EC31DEC00587B05 /* Auth.swift */; };
 		ACA916011EC328D600587B05 /* APIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA916001EC328D600587B05 /* APIResponse.swift */; };
 		ACA916031EC3291C00587B05 /* AuthResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA916021EC3291C00587B05 /* AuthResponse.swift */; };
@@ -33,6 +34,7 @@
 		AC37BFF41EC23325001D9BE3 /* APIService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		AC37BFF81EC24C5E001D9BE3 /* FeaturedVideosViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeaturedVideosViewController.swift; sourceTree = "<group>"; };
 		AC37BFFA1EC24C9B001D9BE3 /* NewVideosViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewVideosViewController.swift; sourceTree = "<group>"; };
+		AC5581411EC896D9002A4B94 /* VideosTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideosTabBarController.swift; sourceTree = "<group>"; };
 		ACA915FE1EC31DEC00587B05 /* Auth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Auth.swift; sourceTree = "<group>"; };
 		ACA916001EC328D600587B05 /* APIResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIResponse.swift; sourceTree = "<group>"; };
 		ACA916021EC3291C00587B05 /* AuthResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthResponse.swift; sourceTree = "<group>"; };
@@ -80,6 +82,7 @@
 				AC37BFF81EC24C5E001D9BE3 /* FeaturedVideosViewController.swift */,
 				AC37BFFA1EC24C9B001D9BE3 /* NewVideosViewController.swift */,
 				ACA916041EC3893200587B05 /* FeedVideosViewController.swift */,
+				AC5581411EC896D9002A4B94 /* VideosTabBarController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -280,6 +283,7 @@
 				ACEC4F861EC0C574007114F0 /* VideoTableViewCell.swift in Sources */,
 				ACA916011EC328D600587B05 /* APIResponse.swift in Sources */,
 				AC37BFFB1EC24C9B001D9BE3 /* NewVideosViewController.swift in Sources */,
+				AC5581421EC896D9002A4B94 /* VideosTabBarController.swift in Sources */,
 				ACA915FF1EC31DEC00587B05 /* Auth.swift in Sources */,
 				ACEC4F7D1EC0B4E3007114F0 /* Video.swift in Sources */,
 				AC37BFF51EC23325001D9BE3 /* APIService.swift in Sources */,

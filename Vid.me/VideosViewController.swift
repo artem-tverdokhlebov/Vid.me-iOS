@@ -61,6 +61,7 @@ class VideosViewController: UIViewController, UITableViewDelegate, UITableViewDa
         super.viewDidDisappear(animated)
         
         self.previousVideoPlayingCell?.stopVideo()
+        self.previousVideoPlayingCell = nil
     }
     
     func loadVideosData(offset: Int, completion: @escaping VideosAPIServiceCallback) {
@@ -106,6 +107,10 @@ class VideosViewController: UIViewController, UITableViewDelegate, UITableViewDa
             
             if self.tableView.tableFooterView != nil {
                 self.tableView.tableFooterView = nil
+            }
+            
+            if self.videos.count > 0 && offset == 0 {
+                self.playVideoAt(indexPath: IndexPath(item: 0, section: 0))
             }
         }
     }
@@ -174,9 +179,10 @@ class VideosViewController: UIViewController, UITableViewDelegate, UITableViewDa
             if self.apiService.isInternetAvailable() {
                 cell.videoPreviewView.sd_setImage(with: imageURL) { (image, error, cacheType, url) in
                     if cacheType == .none {
-                        UIView.performWithoutAnimation {
-                            self.tableView.reloadRows(at: [indexPath], with: .none)
-                        }
+                        self.tableView.beginUpdates()
+                        self.tableView.endUpdates()
+                        
+                        cell.layoutSubviews()
                     }
                 }
             } else {
@@ -194,12 +200,20 @@ class VideosViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.tableView.deselectRow(at: indexPath, animated: true)
         
+        self.previousVideoPlayingCell?.stopVideo()
+        
         if let completeURL = self.videos[indexPath.row].complete_url, let videoURL = URL(string: completeURL) {
             if self.apiService.isInternetAvailable() {
+                let player = AVPlayer(url: videoURL)
                 
-                let videoCell = tableView.cellForRow(at: indexPath) as! VideoTableViewCell
+                let playerViewController = AVPlayerViewController()
+                playerViewController.player = player
                 
-                videoCell.playVideo(videoURL: videoURL)
+                playerViewController.modalTransitionStyle = .flipHorizontal
+                
+                self.present(playerViewController, animated: true) {
+                    playerViewController.player!.play()
+                }
             } else {
                 self.showNetworkProblemLabel()
             }
@@ -212,10 +226,31 @@ class VideosViewController: UIViewController, UITableViewDelegate, UITableViewDa
         let indexPath = self.tableView.indexPathForRow(at: centerPoint)
         
         if let indexPath = indexPath {
-            let videoCell = self.tableView.cellForRow(at: indexPath) as! VideoTableViewCell
+            self.playVideoAt(indexPath: indexPath)
+        }
+    }
+    
+    func playVideoInCell() {
+        if self.tableView.contentOffset.y == 0 {
+            self.playVideoAt(indexPath: IndexPath(item: 0, section: 0))
+        } else if Int(self.tableView.contentOffset.y) >= Int(self.tableView.contentSize.height - self.tableView.frame.size.height) {
+            let totalRows = tableView.numberOfRows(inSection: 0)
+            self.playVideoAt(indexPath: IndexPath(row: totalRows - 1, section: 0))
+        } else {
+            self.playVideoInCenterCell()
+        }
+    }
+    
+    func playVideoAt(indexPath: IndexPath) {
+        if let videoCell = self.tableView.cellForRow(at: indexPath) as? VideoTableViewCell {
             
-            if self.previousVideoPlayingCell != nil && self.previousVideoPlayingCell != videoCell {
+            guard self.previousVideoPlayingCell != videoCell else {
+                return
+            }
+            
+            if self.previousVideoPlayingCell != nil {
                 self.previousVideoPlayingCell?.stopVideo()
+                self.previousVideoPlayingCell = nil
             }
             
             if let completeURL = self.videos[indexPath.row].complete_url, let videoURL = URL(string: completeURL) {
@@ -246,11 +281,11 @@ class VideosViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         if !decelerate {
-            self.playVideoInCenterCell()
+            self.playVideoInCell()
         }
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        self.playVideoInCenterCell()
+        self.playVideoInCell()
     }
 }

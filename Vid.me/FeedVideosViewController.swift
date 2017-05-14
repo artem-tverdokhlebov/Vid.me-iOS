@@ -46,6 +46,9 @@ class FeedVideosViewController: VideosViewController {
             if status {
                 self.showLoginViews()
                 
+                self.previousVideoPlayingCell?.stopVideo()
+                self.previousVideoPlayingCell = nil
+                
                 self.videos.removeAll()
             } else if let error = error {
                 switch error.kind {

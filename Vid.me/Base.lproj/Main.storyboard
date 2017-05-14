@@ -9,10 +9,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Tab Bar Controller-->
+        <!--Videos Tab Bar Controller-->
         <scene sceneID="B4v-c6-x8A">
             <objects>
-                <tabBarController id="qBx-hL-nQm" sceneMemberID="viewController">
+                <tabBarController id="qBx-hL-nQm" customClass="VideosTabBarController" customModule="Vid_me" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" id="1XT-a6-dXP">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
