@@ -28,7 +28,7 @@
             </objects>
             <point key="canvasLocation" x="-1418" y="-453"/>
         </scene>
-        <!--Featured Videos View Controller-->
+        <!--Featured-->
         <scene sceneID="zcs-eK-f99">
             <objects>
                 <viewController id="noU-C5-7eq" customClass="FeaturedVideosViewController" customModule="Vid_me" customModuleProvider="target" sceneMemberID="viewController">
@@ -76,7 +76,7 @@
                             <constraint firstAttribute="trailing" secondItem="OVq-JI-B04" secondAttribute="trailing" id="jwB-bi-Fue"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" systemItem="featured" id="6rz-61-JO9"/>
+                    <tabBarItem key="tabBarItem" title="Featured" image="featured" id="6rz-61-JO9"/>
                     <connections>
                         <outlet property="networkProblemLabel" destination="OVq-JI-B04" id="D2V-fv-qWd"/>
                         <outlet property="tableView" destination="6LQ-jH-EQu" id="zO5-EO-LaU"/>
@@ -134,7 +134,7 @@
                             <constraint firstItem="MYc-FT-PrU" firstAttribute="leading" secondItem="bia-yj-caH" secondAttribute="leading" id="x7g-Dz-9pe"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="New" id="FxT-Yn-KdR"/>
+                    <tabBarItem key="tabBarItem" title="New" image="new" id="FxT-Yn-KdR"/>
                     <connections>
                         <outlet property="networkProblemLabel" destination="Vn8-Qo-PC8" id="RY9-Ug-nsq"/>
                         <outlet property="tableView" destination="MYc-FT-PrU" id="Azm-Av-JTd"/>
@@ -251,7 +251,7 @@
                             <constraint firstAttribute="trailing" secondItem="hM0-tb-nxS" secondAttribute="trailing" constant="40" id="xex-T4-iGk"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Feed" id="SEj-fZ-1lm"/>
+                    <tabBarItem key="tabBarItem" title="Feed" image="feed" id="SEj-fZ-1lm"/>
                     <connections>
                         <outlet property="loginStackView" destination="hM0-tb-nxS" id="0MV-qs-PvQ"/>
                         <outlet property="logoutButton" destination="9qD-qw-a8f" id="Qi5-6X-pI0"/>
@@ -266,4 +266,9 @@
             <point key="canvasLocation" x="-535.20000000000005" y="329.68515742128938"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="featured" width="25" height="25"/>
+        <image name="feed" width="25" height="25"/>
+        <image name="new" width="25" height="25"/>
+    </resources>
 </document>
