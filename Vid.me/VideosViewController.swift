@@ -191,6 +191,8 @@ class VideosViewController: UIViewController, UITableViewDelegate, UITableViewDa
             }
         }
         
+        cell.videoID = videos[index].video_id
+        
         cell.videoTitleLabel.text = videos[index].title
         cell.videoLikesLabel.text = "\(videos[index].likes_count ?? 0) likes"
         
@@ -243,12 +245,11 @@ class VideosViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     func playVideoAt(indexPath: IndexPath) {
         if let videoCell = self.tableView.cellForRow(at: indexPath) as? VideoTableViewCell {
-            
-            guard self.previousVideoPlayingCell != videoCell else {
-                return
-            }
-            
             if self.previousVideoPlayingCell != nil {
+                guard self.previousVideoPlayingCell?.videoID != videoCell.videoID else {
+                    return
+                }
+                
                 self.previousVideoPlayingCell?.stopVideo()
                 self.previousVideoPlayingCell = nil
             }

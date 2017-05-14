@@ -12,6 +12,8 @@ import AVFoundation
 
 class VideoTableViewCell: UITableViewCell {
     
+    var videoID: String?
+    
     @IBOutlet weak var videoPreviewView: UIImageView!
     @IBOutlet weak var videoTitleLabel: UILabel!
     @IBOutlet weak var videoLikesLabel: UILabel!
